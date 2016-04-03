@@ -1,0 +1,5 @@
+MAILTO="<%= @mailto %>"
+* * * * * root vmstat | tail -n 1 | awk '{print $4}' >> /var/log/free
+* * * * * root vmstat | tail -n 1 | awk '{print $3}' >> /var/log/swap
+* * * * * root vmstat | tail -n 1 | awk '{print $13}' >> /var/log/cpu
+* * * * * root df | grep -E '/$' | awk '{print $4}' >> /var/log/disk

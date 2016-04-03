@@ -1,0 +1,11 @@
+[Unit]
+Before=kibana.target
+
+[Service]
+ExecStart=/opt/elasticsearch/bin/elasticsearch
+Restart=always
+User=kibana
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

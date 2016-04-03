@@ -1,0 +1,9 @@
+/var/log/h2o/access.log
+/var/log/h2o/error.log
+{
+  missingok
+  sharedscripts
+  postrotate
+    systemctl reload h2o
+  endscript
+}

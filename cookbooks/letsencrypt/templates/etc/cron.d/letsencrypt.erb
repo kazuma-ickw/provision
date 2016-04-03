@@ -1,0 +1,2 @@
+MAILTO="<%= @mailto %>"
+5 3 * * * root /opt/letsencrypt/letsencrypt.sh -c && <%= @services.map {|service| "systemctl reload #{service}" }.join(' && ') %>

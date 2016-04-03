@@ -1,0 +1,39 @@
+#!/bin/sh
+
+PATH=/usr/sbin:$PATH
+
+TCP_OPEN_PORTS=(<%= @tcp_open_ports.join(' ') %>)
+
+UDP_OPEN_PORTS=(<%= @udp_open_ports.join(' ') %>)
+
+ALLOW=(<%= @allow.join(' ') %>)
+
+DENY=(<%= @deny.join(' ') %>)
+
+iptables -F
+iptables -X
+iptables -Z
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -p icmp -j ACCEPT
+iptables -A INPUT -i lo -j ACCEPT
+
+for allow in ${ALLOW[@]}; do
+  iptables -A INPUT -s $allow -j ACCEPT
+done
+
+for tcp_open_port in ${TCP_OPEN_PORTS[@]}; do
+  iptables -A INPUT -p tcp -m multiport --dports $tcp_open_port -j ACCEPT
+done
+for udp_open_port in ${UDP_OPEN_PORTS[@]}; do
+  iptables -A INPUT -p udp -m multiport --dports $udp_open_port -j ACCEPT
+done
+
+for deny in ${DENY[@]}; do
+  iptables -A INPUT -s $deny -j DROP
+done
+
+iptables-save

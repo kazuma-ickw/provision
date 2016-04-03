@@ -1,0 +1,10 @@
+[Unit]
+After=elasticserch.target
+
+[Service]
+ExecStart=/opt/kibana/bin/kibana
+Restart=always
+User=kibana
+
+[Install]
+WantedBy=multi-user.target

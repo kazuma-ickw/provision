@@ -1,0 +1,8 @@
+/var/log/free
+/var/log/swap
+/var/log/cpu
+/var/log/disk
+{
+  missingok
+  sharedscripts
+}

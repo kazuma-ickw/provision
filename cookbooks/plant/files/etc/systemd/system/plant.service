@@ -1,0 +1,9 @@
+[Unit]
+After=plant.target
+
+[Service]
+ExecStart=/opt/plant/bin/plant start
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

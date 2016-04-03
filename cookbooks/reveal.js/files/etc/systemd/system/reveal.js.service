@@ -1,0 +1,7 @@
+[Service]
+WorkingDirectory=/opt/reveal.js
+ExecStart=/usr/bin/grunt serve
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
